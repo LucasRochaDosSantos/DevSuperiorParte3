@@ -20,13 +20,19 @@ public class Program {
 			conn = DB.getConnection();
 			st = conn.createStatement();
 			rs = st.executeQuery("select * from department");
+			
 			while (rs.next()) {
 				System.out.printf("%d %s \n", rs.getInt("id"), rs.getString("name"));
 
 			}
 		} catch (SQLException e) {
 			throw new DBException(e.getMessage());
+		}finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
 		}
+		
 	}
 
 }
